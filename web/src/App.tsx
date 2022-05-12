@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import { RepoListPage } from './pages/RepoListPage/RepoListPage';
+import { Repo } from './models/Repo';
 
 export function App() {
-  const [repoList, setRepoList] = useState<any>([]);
+  const [repoList, setRepoList] = useState<Repo[]>([]);
   const [returnedError, setReturnedError] = useState<boolean>(false);
 
   useEffect(() => {

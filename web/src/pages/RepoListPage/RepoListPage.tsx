@@ -1,10 +1,11 @@
 import React from 'react';
 import RepoListItem from '../../components/RepoListItem/RepoListItem';
+import { Repo } from '../../models/Repo';
 
 interface RepoListPageProps {
   returnedError: boolean;
   getRepoData: () => void;
-  repoList: any;
+  repoList: Repo[];
 }
 
 export function RepoListPage({
