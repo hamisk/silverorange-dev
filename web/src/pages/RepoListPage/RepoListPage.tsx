@@ -28,7 +28,11 @@ export function RepoListPage({
       ) : (
         ''
       )}
-      <button className="repo-list__language">{listOfLanguages[0]}</button>
+      {listOfLanguages.map((language, index) => (
+        <button className="repo-list__language" key={language + index}>
+          {language}
+        </button>
+      ))}
       {repoList.map((repo: any) => (
         <RepoListItem
           key={repo.id}
