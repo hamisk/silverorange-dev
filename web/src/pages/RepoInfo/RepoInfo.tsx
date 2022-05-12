@@ -5,6 +5,8 @@ import axios from 'axios';
 import { Commit } from '../../models/Commit';
 import ReactMarkdown from 'react-markdown';
 
+import './RepoInfo.css';
+
 interface Props {
   repoList: Repo[];
 }
@@ -41,7 +43,7 @@ export default function RepoInfo({ repoList }: Props) {
   }, []);
 
   return (
-    <div>
+    <div className="repo-info">
       <h3>Repo Info</h3>
       <Link to="/">Return to list of repositories</Link>
       <p className="repo-info__copy">
@@ -58,9 +60,11 @@ export default function RepoInfo({ repoList }: Props) {
       ) : (
         'No commit information found. Please try another repository'
       )}
-      <ReactMarkdown>
-        {readme.length > 1 ? readme : 'No readme to display'}
-      </ReactMarkdown>
+      <div className="markdown">
+        <ReactMarkdown>
+          {readme.length > 1 ? readme : 'No readme to display'}
+        </ReactMarkdown>
+      </div>
     </div>
   );
 }

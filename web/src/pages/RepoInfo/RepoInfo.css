@@ -1,0 +1,9 @@
+.repo-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.markdown {
+  width: 90%;
+}
