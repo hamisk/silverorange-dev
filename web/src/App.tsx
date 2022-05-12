@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { RepoListPage } from './pages/RepoListPage/RepoListPage';
 import { Repo } from './models/Repo';
@@ -23,7 +24,6 @@ export function App() {
           (a: Repo, b: Repo) =>
             Date.parse(b.created_at) - Date.parse(a.created_at)
         );
-        console.log(sortByCreationDate);
         setRepoList(sortByCreationDate);
       })
       .catch((err) => {
@@ -32,12 +32,21 @@ export function App() {
   };
 
   return (
-    <div className="App">
-      <RepoListPage
-        returnedError={returnedError}
-        getRepoData={getRepoData}
-        repoList={repoList}
-      />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <RepoListPage
+                returnedError={returnedError}
+                getRepoData={getRepoData}
+                repoList={repoList}
+              />
+            }
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
