@@ -11,9 +11,11 @@ interface Props {
 export default function RepoInfo({ repoList }: Props) {
   const [commit, setCommit] = useState<Commit | null>(null);
   const params = useParams();
-  const commitsUrl = repoList
-    .find((repo) => repo.id === Number(params.id))
-    ?.commits_url.slice(0, -6);
+  const selectedRepo = repoList.find((repo) => repo.id === Number(params.id));
+  const commitsUrl = selectedRepo?.commits_url.slice(0, -6);
+  const repoFullName = selectedRepo?.full_name;
+  const readmeUrl = `https://raw.githubusercontent.com/${repoFullName}/master/README.md`;
+  console.log(readmeUrl);
 
   useEffect(() => {
     axios.get(commitsUrl!).then((res) => {
