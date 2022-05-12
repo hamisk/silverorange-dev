@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Repo } from '../../models/Repo';
 import axios from 'axios';
 import { Commit } from '../../models/Commit';
@@ -40,6 +40,7 @@ export default function RepoInfo({ repoList }: Props) {
   return (
     <div>
       <h3>Repo Info</h3>
+      <Link to="/">Return to list of repositories</Link>
       <p className="repo-info__copy">
         Repo commit info accessed at repository commit URL
       </p>
