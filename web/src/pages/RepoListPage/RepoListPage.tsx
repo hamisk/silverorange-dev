@@ -28,6 +28,10 @@ export function RepoListPage({
     setReposToDisplay(filteredRepos);
   };
 
+  const clearFilter = () => {
+    setReposToDisplay(repoList);
+  };
+
   return (
     <div className="repo-list">
       <h2 className="repo-list__title">A list of repositories</h2>
@@ -48,6 +52,9 @@ export function RepoListPage({
           {language}
         </button>
       ))}
+      <button className="repo-list__language" onClick={() => clearFilter()}>
+        Clear filter
+      </button>
       {reposToDisplay.map((repo: Repo) => (
         <RepoListItem
           key={repo.id}
