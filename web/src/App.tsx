@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import { RepoListPage } from './pages/RepoListPage/RepoListPage';
 
 export function App() {
   const [repoList, setRepoList] = useState<any>([]);
@@ -28,17 +29,11 @@ export function App() {
 
   return (
     <div className="App">
-      <div className="repo-list">
-        <h2 className="repo-list__title">A list of repositories</h2>
-        {returnedError ? (
-          <>
-            <p className="repo-list__text">Error retrieving repository data</p>
-            <button onClick={() => getRepoData()}>Click to retry</button>
-          </>
-        ) : (
-          ''
-        )}
-      </div>
+      <RepoListPage
+        returnedError={returnedError}
+        getRepoData={getRepoData}
+        repoList={repoList}
+      />
     </div>
   );
 }
