@@ -9,6 +9,7 @@ interface RepoListPageProps {
 export function RepoListPage({
   returnedError,
   getRepoData,
+  repoList,
 }: RepoListPageProps) {
   return (
     <div className="repo-list">
@@ -21,6 +22,16 @@ export function RepoListPage({
       ) : (
         ''
       )}
+      <div className="repo-list__repo">
+        <h3 className="repo-list__name">Name: {repoList[0].name}</h3>
+        <p className="repo-list__copy">
+          Description: {repoList[0].description}
+        </p>
+        <p className="repo-list__copy">Language: {repoList[0].language}</p>
+        <p className="repo-list__copy">
+          Forks Count: {repoList[0].forks_count}
+        </p>
+      </div>
     </div>
   );
 }
