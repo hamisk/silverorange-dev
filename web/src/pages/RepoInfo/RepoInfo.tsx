@@ -10,6 +10,7 @@ interface Props {
 
 export default function RepoInfo({ repoList }: Props) {
   const [commit, setCommit] = useState<Commit | null>(null);
+  const [readme, setReadme] = useState('');
   const params = useParams();
   const selectedRepo = repoList.find((repo) => repo.id === Number(params.id));
   const commitsUrl = selectedRepo?.commits_url.slice(0, -6);
@@ -18,14 +19,20 @@ export default function RepoInfo({ repoList }: Props) {
   console.log(readmeUrl);
 
   useEffect(() => {
-    axios.get(commitsUrl!).then((res) => {
-      res.data.sort(
-        (a: Commit, b: Commit) =>
-          Date.parse(b.commit.author.date) - Date.parse(a.commit.author.date)
-      );
-      const mostRecentCommit = res.data[0];
-      setCommit(mostRecentCommit);
-    });
+    axios.all([axios.get(commitsUrl!), axios.get(readmeUrl)]).then(
+      axios.spread((response1, response2) => {
+        response1.data.sort(
+          (a: Commit, b: Commit) =>
+            Date.parse(b.commit.author.date) - Date.parse(a.commit.author.date)
+        );
+        const mostRecentCommit = response1.data[0];
+        setCommit(mostRecentCommit);
+
+        console.log(typeof response2.data);
+        setReadme(response2.data);
+        console.log(readme);
+      })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
