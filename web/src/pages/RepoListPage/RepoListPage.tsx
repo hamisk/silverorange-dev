@@ -13,6 +13,10 @@ export function RepoListPage({
   getRepoData,
   repoList,
 }: RepoListPageProps) {
+  const listOfLanguages = Array.from(
+    new Set(repoList.map((repo) => repo.language))
+  );
+
   return (
     <div className="repo-list">
       <h2 className="repo-list__title">A list of repositories</h2>
@@ -24,6 +28,7 @@ export function RepoListPage({
       ) : (
         ''
       )}
+      <button className="repo-list__language">{listOfLanguages[0]}</button>
       {repoList.map((repo: any) => (
         <RepoListItem
           key={repo.id}
