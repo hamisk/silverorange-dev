@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import fs from 'fs';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Repo } from '../models/Repo';
 
 export const repos = Router();
@@ -17,7 +17,7 @@ repos.get('/', async (_: Request, res: Response) => {
 
   axios
     .get('https://api.github.com/users/silverorange/repos')
-    .then((resp) => {
+    .then((resp: AxiosResponse) => {
       const githubReposData: Repo[] = resp.data;
       const aggregatedRepos = [...githubReposData, ...localReposData];
 
@@ -28,7 +28,7 @@ repos.get('/', async (_: Request, res: Response) => {
       res.status(200);
       res.json(filteredRepos);
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       // Catch error if unable to access external github endpoint
       res.status(500).send(`Error retrieving repos from github: ${err}`);
     });
