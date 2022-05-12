@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Repo } from '../../models/Repo';
 
 interface Props {
@@ -6,6 +7,11 @@ interface Props {
 }
 
 export default function RepoInfo({ repoList }: Props) {
+  const params = useParams();
+  const commitsUrl = repoList
+    .find((repo) => repo.id === Number(params.id))
+    ?.commits_url.slice(0, -6);
+  console.log(commitsUrl);
   return (
     <div>
       <h3>Repo Info</h3>
