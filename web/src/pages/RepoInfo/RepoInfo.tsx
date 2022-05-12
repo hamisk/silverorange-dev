@@ -17,11 +17,11 @@ export default function RepoInfo({ repoList }: Props) {
   const commitsUrl = selectedRepo?.commits_url.slice(0, -6);
   const repoFullName = selectedRepo?.full_name;
   const readmeUrl = `https://raw.githubusercontent.com/${repoFullName}/master/README.md`;
-  console.log(readmeUrl);
 
   useEffect(() => {
-    axios.all([axios.get(commitsUrl!), axios.get(readmeUrl)]).then(
-      axios.spread((response1, response2) => {
+    axios
+      .get(commitsUrl!)
+      .then((response1) => {
         response1.data.sort(
           (a: Commit, b: Commit) =>
             Date.parse(b.commit.author.date) - Date.parse(a.commit.author.date)
@@ -29,11 +29,14 @@ export default function RepoInfo({ repoList }: Props) {
         const mostRecentCommit = response1.data[0];
         setCommit(mostRecentCommit);
 
-        console.log(typeof response2.data);
-        setReadme(response2.data);
-        console.log(readme);
+        axios
+          .get(readmeUrl)
+          .then((response2) => {
+            setReadme(response2.data);
+          })
+          .catch((err) => console.log(err));
       })
-    );
+      .catch((err) => console.log(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -53,7 +56,7 @@ export default function RepoInfo({ repoList }: Props) {
           <p className="repo-info__copy">message: {commit.commit.message}</p>
         </div>
       ) : (
-        ''
+        'No commit information found. Please try another repository'
       )}
       <ReactMarkdown>{readme}</ReactMarkdown>
     </div>
