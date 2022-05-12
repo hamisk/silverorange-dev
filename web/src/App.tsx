@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { RepoListPage } from './pages/RepoListPage/RepoListPage';
 import { Repo } from './models/Repo';
+import RepoInfo from './pages/RepoInfo/RepoInfo';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export function App() {
   const [repoList, setRepoList] = useState<Repo[]>([]);
@@ -45,6 +46,7 @@ export function App() {
               />
             }
           />
+          <Route path="/:id" element={<RepoInfo repoList={repoList} />} />
         </Routes>
       </div>
     </BrowserRouter>
