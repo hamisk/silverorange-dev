@@ -58,7 +58,9 @@ export default function RepoInfo({ repoList }: Props) {
       ) : (
         'No commit information found. Please try another repository'
       )}
-      <ReactMarkdown>{readme}</ReactMarkdown>
+      <ReactMarkdown>
+        {readme.length > 1 ? readme : 'No readme to display'}
+      </ReactMarkdown>
     </div>
   );
 }
