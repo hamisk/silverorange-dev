@@ -19,11 +19,14 @@ export function App() {
     axios
       .get('http://localhost:4000/repos')
       .then((res) => {
-        setRepoList(res.data);
-        console.log(repoList);
+        const sortByCreationDate = res.data.sort(
+          (a: Repo, b: Repo) =>
+            Date.parse(b.created_at) - Date.parse(a.created_at)
+        );
+        console.log(sortByCreationDate);
+        setRepoList(sortByCreationDate);
       })
       .catch((err) => {
-        console.log(err);
         setReturnedError(true);
       });
   };
