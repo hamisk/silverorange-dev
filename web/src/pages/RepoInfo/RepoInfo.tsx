@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Repo } from '../../models/Repo';
 import axios from 'axios';
 import { Commit } from '../../models/Commit';
+import ReactMarkdown from 'react-markdown';
 
 interface Props {
   repoList: Repo[];
@@ -53,6 +54,7 @@ export default function RepoInfo({ repoList }: Props) {
       ) : (
         ''
       )}
+      <ReactMarkdown>{readme}</ReactMarkdown>
     </div>
   );
 }
