@@ -17,6 +17,10 @@ export default function RepoInfo({ repoList }: Props) {
 
   useEffect(() => {
     axios.get(commitsUrl!).then((res) => {
+      res.data.sort(
+        (a: Commit, b: Commit) =>
+          Date.parse(b.commit.author.date) - Date.parse(a.commit.author.date)
+      );
       const mostRecentCommit = res.data[0];
       setCommit(mostRecentCommit);
     });
