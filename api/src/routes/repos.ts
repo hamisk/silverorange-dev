@@ -7,6 +7,7 @@ export const repos = Router();
 
 repos.get('/', async (_: Request, res: Response) => {
   res.header('Cache-Control', 'no-store');
+  res.header('Content-Type', 'application/json');
 
   // TODO: See README.md Task (A). Return repo data here. You’ve got this!
   // Read local repos.json data when endpoint called to account for any changes to file while server running
@@ -20,8 +21,12 @@ repos.get('/', async (_: Request, res: Response) => {
       const githubReposData: Repo[] = resp.data;
       const aggregatedRepos = [...githubReposData, ...localReposData];
 
+      const filteredRepos = aggregatedRepos.filter(
+        (repo) => repo.fork === false
+      );
+
       res.status(200);
-      res.json(aggregatedRepos);
+      res.json(filteredRepos);
     })
     .catch((err) => {
       // Catch error if unable to access external github endpoint
