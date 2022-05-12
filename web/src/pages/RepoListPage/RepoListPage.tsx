@@ -23,12 +23,15 @@ export function RepoListPage({
       ) : (
         ''
       )}
-      <RepoListItem
-        name={repoList[0].name}
-        description={repoList[0].description}
-        language={repoList[0].language}
-        forksCount={repoList[0].forks_count}
-      />
+      {repoList.map((repo: any) => (
+        <RepoListItem
+          key={repo.id}
+          name={repo.name}
+          description={repo.description}
+          language={repo.language}
+          forksCount={repo.forks_count}
+        />
+      ))}
     </div>
   );
 }
