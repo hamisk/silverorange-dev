@@ -58,6 +58,7 @@ export function RepoListPage({
       {reposToDisplay.map((repo: Repo) => (
         <RepoListItem
           key={repo.id}
+          repoId={repo.id}
           name={repo.name}
           description={repo.description}
           language={repo.language}
